@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:SleepTracker"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Toolkit.Charts;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:progressBar="clr-namespace:Syncfusion.Maui.ProgressBar;assembly=Syncfusion.Maui.ProgressBar"
+             x:Class="SleepTracker.MainPage">
+
+    <ContentPage.Resources>
+        <!-- App-wide background -->
+        <Color x:Key="AppBackground">#121212</Color>
+
+        <!-- Card/Panel background -->
+        <Color x:Key="CardBackground">#1E1E1E</Color>
+
+        <!-- Chart background -->
+        <Color x:Key="ChartBackground">#1A1A1A</Color>
+
+        <Color x:Key="AwakeColor">#FF4D4D</Color>
+        <Color x:Key="REMColor">#66B3FF</Color>
+        <Color x:Key="CoreColor">#3366FF</Color>
+        <Color x:Key="DeepColor">#1A1AFF</Color>
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <viewmodels:SleepDetailViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid Background="{StaticResource AppBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height ="Auto"/>
+            <RowDefinition Height ="5*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Text="Sleep Tracker" Margin="20,0,0,0" TextColor="White" FontSize="25" FontAttributes="Bold"/>
+
+        <!-- Sleep Tracker -->
+        <Grid Grid.Row="1" Padding="20" RowSpacing="20" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Header Information -->
+            <Grid Grid.Row="0" ColumnSpacing="40">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <VerticalStackLayout Grid.Column="0">
+                    <Label Text="TIME IN BED" TextColor="Gray" FontSize="18" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text="{Binding TimeInBed, StringFormat='{0:h}'}" TextColor="White" FontSize="42" FontAttributes="Bold" />
+                        <Label Grid.Column="1" Text="hr" TextColor="White" FontSize="42" FontAttributes="Bold" Margin="5,0,10,0" />
+                        <Label Grid.Column="2" Text="{Binding TimeInBed, StringFormat='{0:mm}'}" TextColor="White" FontSize="42" FontAttributes="Bold" />
+                        <Label Grid.Column="3" Text="min" TextColor="White" FontSize="42" FontAttributes="Bold" Margin="5,0,0,0" />
+                    </Grid>
+                    <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}" TextColor="Gray" FontSize="16" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="TIME ASLEEP" TextColor="Gray" FontSize="18" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text="{Binding TimeAsleep, StringFormat='{0:h}'}" TextColor="White" FontSize="42" FontAttributes="Bold" />
+                        <Label Grid.Column="1" Text="hr" TextColor="White" FontSize="42" FontAttributes="Bold" Margin="5,0,10,0" />
+                        <Label Grid.Column="2" Text="{Binding TimeAsleep, StringFormat='{0:mm}'}" TextColor="White" FontSize="42" FontAttributes="Bold" />
+                        <Label Grid.Column="3" Text="min" TextColor="White" FontSize="42" FontAttributes="Bold" Margin="5,0,0,0" />
+                    </Grid>
+                </VerticalStackLayout>
+
+                <Button Grid.Column="2" 
+                        Text="i" 
+                        TextColor="#3498db" 
+                        BackgroundColor="Transparent" 
+                        BorderColor="#3498db" 
+                        BorderWidth="1" 
+                        CornerRadius="20" 
+                        HeightRequest="40" 
+                        WidthRequest="40" 
+                        VerticalOptions="Start"
+                        HorizontalOptions="End"/>
+            </Grid>
+
+            <Border Grid.Row="1" StrokeThickness="1" Background="{StaticResource ChartBackground}" Stroke="LightGray" StrokeShape="RoundRectangle 8" Padding="15,5,15,5">
+                <!-- Sleep Phases Chart -->
+                <chart:SfCartesianChart  
+                                IsTransposed="True" 
+                                EnableSideBySideSeriesPlacement="False"
+                                HorizontalOptions="Fill" 
+                                VerticalOptions="Fill">
+                    <chart:SfCartesianChart.Legend>
+                        <chart:ChartLegend/>
+                    </chart:SfCartesianChart.Legend>
+
+                    <chart:SfCartesianChart.XAxes>
+                        <chart:CategoryAxis ArrangeByIndex="False" IsVisible="False" ShowMajorGridLines="False">
+                        </chart:CategoryAxis>
+                    </chart:SfCartesianChart.XAxes>
+
+                    <chart:SfCartesianChart.YAxes>
+                        <chart:NumericalAxis IsVisible="False" RangePadding="None" ShowMajorGridLines="False" ShowMinorGridLines="False">
+                        </chart:NumericalAxis>
+                    </chart:SfCartesianChart.YAxes>
+
+                    <!-- Awake Phase Series -->
+                    <chart:RangeColumnSeries ItemsSource="{Binding AwakePhases}" Width="0.5"
+                                             XBindingPath="Phase"
+                                             High="Start"
+                                             Low="End" Label="Awake"
+                                             Fill="{StaticResource AwakeColor}" />
+
+                    <!-- REM Phase Series -->
+                    <chart:RangeColumnSeries ItemsSource="{Binding REMPhases}"
+                                             XBindingPath="Phase"  Width="0.5"
+                                             High="Start"
+                                             Low="End" Label="REM"
+                                             Fill="{StaticResource REMColor}" />
+
+                    <!-- Core Phase Series -->
+                    <chart:RangeColumnSeries ItemsSource="{Binding CorePhases}"
+                                             XBindingPath="Phase"  Width="0.5"
+                                             High="Start"
+                                             Low="End" Label="Core"
+                                             Fill="{StaticResource CoreColor}" />
+
+                    <!-- Deep Phase Series -->
+                    <chart:RangeColumnSeries ItemsSource="{Binding DeepPhases}"
+                                             XBindingPath="Phase"  Width="0.5"
+                                             High="Start"
+                                             Low="End" Label="Deep"
+                                             Fill="{StaticResource DeepColor}" />
+                </chart:SfCartesianChart>
+            </Border>
+        </Grid>
+
+        <!-- Sleep Analyzer -->
+        <Grid Grid.Row="2" ColumnDefinitions="5*,5*" ColumnSpacing="10" Padding="15">
+            <Grid.BindingContext>
+                <viewmodels:SleepTrackerViewModel />
+            </Grid.BindingContext>
+            <Border Grid.Column="0" StrokeThickness="1" Stroke="LightGray" StrokeShape="RoundRectangle 8" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Last 7 Days Analysis"
+                           FontSize="16"
+                           TextColor="Gray"
+                           HorizontalOptions="Start" />
+                    <chart:SfCartesianChart>
+                        <chart:SfCartesianChart.BindingContext>
+                            <viewmodels:SleepTrackerViewModel />
+                        </chart:SfCartesianChart.BindingContext>
+
+                        <chart:SfCartesianChart.XAxes>
+                            <chart:CategoryAxis 
+                            ShowMajorGridLines="False"
+                            LabelPlacement="BetweenTicks">
+                                <chart:CategoryAxis.LabelStyle>
+                                    <chart:ChartAxisLabelStyle LabelFormat="dd-MMM"/>
+                                </chart:CategoryAxis.LabelStyle>
+                            </chart:CategoryAxis>
+                        </chart:SfCartesianChart.XAxes>
+
+                        <chart:SfCartesianChart.YAxes>
+                            <chart:NumericalAxis 
+                                    ShowMajorGridLines="False"
+                                    IsVisible="False"
+                                    Minimum="0"
+                                    Maximum="24"
+                                    Interval="3"/>
+                        </chart:SfCartesianChart.YAxes>
+
+                        <chart:SfCartesianChart.Series>
+                            <chart:RangeColumnSeries 
+                                        ItemsSource="{Binding WeeklySleepData}"
+                                        XBindingPath="Date"
+                                        High="SleepEnd" 
+                                        Low="SleepStart"
+                                        EnableTooltip="True"
+                                        Fill="{StaticResource REMColor}"
+                                        Spacing="0.3">
+                            </chart:RangeColumnSeries>
+                        </chart:SfCartesianChart.Series>
+
+                        <chart:SfCartesianChart.TooltipBehavior>
+                            <chart:ChartTooltipBehavior/>
+                        </chart:SfCartesianChart.TooltipBehavior>
+                    </chart:SfCartesianChart>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Column="1" StrokeThickness="1" Stroke="LightGray" StrokeShape="RoundRectangle 8" Padding="15">
+                <!-- Sleep Quality Indicator -->
+                <VerticalStackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1" Spacing="0">
+                    <Label Text="Sleep Quality Indicator" 
+                           FontSize="16" VerticalOptions="Start"
+                           TextColor="Gray"
+                           HorizontalOptions="Center" />
+
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding WeeklySleepData}" 
+                                         HorizontalOptions="Start">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="viewmodels:SleepData">
+                                <VerticalStackLayout HorizontalOptions="Center"
+                                                     VerticalOptions="Center">
+                                    <Grid ColumnDefinitions="8*,Auto" HorizontalOptions="FillAndExpand">
+                                        <Label Grid.Row="0" Text="{Binding Date, StringFormat='{0:ddd}'}" VerticalTextAlignment="End" 
+                                               FontSize="12" TextColor="Gray"
+                                               HorizontalOptions="Start" />
+
+                                        <Label Grid.Row="1" HorizontalOptions="EndAndExpand" HorizontalTextAlignment="End" Text="{Binding SleepQuality, StringFormat='{0} %'}" 
+                                               FontSize="24" TextColor="White"/>
+                                    </Grid>
+
+                                    <progressBar:SfLinearProgressBar
+                                            TrackHeight="10" 
+                                            ProgressHeight="10"
+                                            ProgressCornerRadius="5"
+                                            SecondaryProgressCornerRadius="5"
+                                            TrackCornerRadius="5"
+                                            Progress="{Binding SleepQuality}"
+                                            ProgressFill="{StaticResource CoreColor}"
+                                            TrackFill="{StaticResource REMColor}"
+                                            Background="Transparent"/>
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>
