@@ -51,7 +51,7 @@
                 </Grid.ColumnDefinitions>
 
                 <VerticalStackLayout Grid.Column="0">
-                    <Label Text="TIME IN BED" TextColor="Gray" FontSize="18" />
+                    <Label Text="TIME IN BED" TextColor="Gray" FontSize="{OnPlatform Default=18,Android=14,iOS=14}" />
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -59,16 +59,16 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Text="{Binding TimeInBed, StringFormat='{0:h}'}" TextColor="White" FontSize="42" FontAttributes="Bold" />
-                        <Label Grid.Column="1" Text="hr" TextColor="White" FontSize="42" FontAttributes="Bold" Margin="5,0,10,0" />
-                        <Label Grid.Column="2" Text="{Binding TimeInBed, StringFormat='{0:mm}'}" TextColor="White" FontSize="42" FontAttributes="Bold" />
-                        <Label Grid.Column="3" Text="min" TextColor="White" FontSize="42" FontAttributes="Bold" Margin="5,0,0,0" />
+                        <Label Grid.Column="0" Text="{Binding TimeInBed, StringFormat='{0:h}'}" TextColor="White" FontSize="{OnPlatform Default=42,Android=15,iOS=15}" FontAttributes="Bold" />
+                        <Label Grid.Column="1" Text="hr" TextColor="White" FontSize="{OnPlatform Default=42,Android=15,iOS=15}" FontAttributes="Bold" Margin="5,0,10,0" />
+                        <Label Grid.Column="2" Text="{Binding TimeInBed, StringFormat='{0:mm}'}" TextColor="White" FontSize="{OnPlatform Default=42,Android=15,iOS=15}" FontAttributes="Bold" />
+                        <Label Grid.Column="3" Text="min" TextColor="White" FontSize="{OnPlatform Default=42,Android=15,iOS=15}" FontAttributes="Bold" Margin="5,0,0,0" />
                     </Grid>
-                    <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}" TextColor="Gray" FontSize="16" />
+                    <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}" TextColor="Gray" FontSize="{OnPlatform Default=16,Android=14,iOS=14}" />
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Grid.Column="1">
-                    <Label Text="TIME ASLEEP" TextColor="Gray" FontSize="18" />
+                    <Label Text="TIME ASLEEP" TextColor="Gray" FontSize="{OnPlatform Default=18,Android=14,iOS=14}" />
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -76,10 +76,10 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Text="{Binding TimeAsleep, StringFormat='{0:h}'}" TextColor="White" FontSize="42" FontAttributes="Bold" />
-                        <Label Grid.Column="1" Text="hr" TextColor="White" FontSize="42" FontAttributes="Bold" Margin="5,0,10,0" />
-                        <Label Grid.Column="2" Text="{Binding TimeAsleep, StringFormat='{0:mm}'}" TextColor="White" FontSize="42" FontAttributes="Bold" />
-                        <Label Grid.Column="3" Text="min" TextColor="White" FontSize="42" FontAttributes="Bold" Margin="5,0,0,0" />
+                        <Label Grid.Column="0" Text="{Binding TimeAsleep, StringFormat='{0:h}'}" TextColor="White" FontSize="{OnPlatform Default=42,Android=15,iOS=15}" FontAttributes="Bold" />
+                        <Label Grid.Column="1" Text="hr" TextColor="White" FontSize="{OnPlatform Default=42,Android=15,iOS=15}" FontAttributes="Bold" Margin="5,0,10,0" />
+                        <Label Grid.Column="2" Text="{Binding TimeAsleep, StringFormat='{0:mm}'}" TextColor="White" FontSize="{OnPlatform Default=42,Android=15,iOS=15}" FontAttributes="Bold" />
+                        <Label Grid.Column="3" Text="min" TextColor="White" FontSize="{OnPlatform Default=42,Android=15,iOS=15}" FontAttributes="Bold" Margin="5,0,0,0" />
                     </Grid>
                 </VerticalStackLayout>
 
