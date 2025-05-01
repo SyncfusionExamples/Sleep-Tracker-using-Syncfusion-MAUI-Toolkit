@@ -25,4 +25,4 @@ This sample demonstrates a comprehensive sleep tracking application that visuali
 
 If you are facing a "Path too long" exception when building this example project, close Visual Studio and rename the repository to a shorter name before building the project.
 
-For a step-by-step procedure, refer to [Sleep Tracker using Syncfusion MAUI Toolkit]().
+For a step-by-step procedure, refer to [Sleep Tracker using Syncfusion MAUI Toolkit](https://www.syncfusion.com/blogs/post/sleep-patterns-with-net-maui-toolkit).
